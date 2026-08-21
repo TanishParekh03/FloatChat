@@ -7,8 +7,6 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json({ limit: '1mb' }));
 
-client.connect();
-
 app.get("/", (req, res) => {
   res.send("🌊 ARGO Backend API is running!");
 });

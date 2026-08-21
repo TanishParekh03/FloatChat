@@ -1,4 +1,4 @@
-const { Client } = require('pg');
+const { Pool } = require('pg');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -7,7 +7,7 @@ if (!process.env.DATABASE_URL) {
   process.exit(1);
 }
 
-const client = new Client({
+const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     require: true,
@@ -15,4 +15,8 @@ const client = new Client({
   }
 });
 
-module.exports = client;
+pool.on('error', (err, client) => {
+  console.error('Unexpected error on idle client', err);
+});
+
+module.exports = pool;
