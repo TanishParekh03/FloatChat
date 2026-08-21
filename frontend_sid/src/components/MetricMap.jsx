@@ -238,7 +238,7 @@ export default function MetricMap({ metric = 'salinity' }) {
   }, [metric]);
 
   return (
-    <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+    <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
       <DeckGL
         initialViewState={viewState}
         controller

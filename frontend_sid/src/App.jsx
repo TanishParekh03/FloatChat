@@ -15,7 +15,7 @@ function OceanVizApp() {
     const isFullScreenMap = ['Argo Floats', 'Salinity', 'Temperature', 'Pressure'].includes(activePage);
 
     return (
-        <div className="min-h-screen flex flex-col text-white w-full" style={{ background: 'transparent' }}>
+        <div className="h-screen flex flex-col text-white w-full overflow-hidden" style={{ background: 'transparent' }}>
             <Navbar activePage={activePage} setActivePage={setActivePage} />
 
             <AnimatePresence mode="wait">

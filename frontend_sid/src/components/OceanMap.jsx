@@ -120,7 +120,7 @@ export default function OceanMap({ setActivePage }) {
   ];
 
   return (
-    <div style={{ width: '100%', height: 'calc(100vh - 56px)', overflow: 'hidden', position: 'relative' }}>
+    <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
       {/* Back to Home */}
       <button
         onClick={() => setActivePage('Home')}
