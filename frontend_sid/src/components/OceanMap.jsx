@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Map, { NavigationControl } from 'react-map-gl/maplibre';
 import DeckGL from '@deck.gl/react';
 import { ScatterplotLayer } from '@deck.gl/layers';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Layers } from 'lucide-react';
 import maplibregl from 'maplibre-gl';
 import { API_BASE } from '../config';
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -120,15 +120,21 @@ export default function OceanMap({ setActivePage }) {
   ];
 
   return (
-    <div style={{ width: '100%', height: 'calc(100vh - 140px)', overflow: 'hidden', position: 'relative' }}>
-      {/* Back to Home Button */}
+    <div style={{ width: '100%', height: 'calc(100vh - 56px)', overflow: 'hidden', position: 'relative' }}>
+      {/* Back to Home */}
       <button
         onClick={() => setActivePage('Home')}
-        className="absolute top-4 left-4 z-10 flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white rounded-lg border border-white/20 transition-all duration-300"
+        className="absolute top-3 left-3 z-10 flex items-center gap-1.5 px-3 py-1.5 glass-subtle rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/8 transition-all duration-200"
       >
-        <ArrowLeft size={18} />
-        Back to Home
+        <ArrowLeft size={14} />
+        Back
       </button>
+
+      {/* Point count badge */}
+      <div className="absolute top-3 right-3 z-10 glass-subtle rounded-lg px-3 py-1.5 flex items-center gap-1.5">
+        <Layers size={12} className="text-[var(--accent)]" />
+        <span className="text-xs text-white/60">{safePoints.length.toLocaleString()} points</span>
+      </div>
 
       <DeckGL
         viewState={viewState}
@@ -141,11 +147,11 @@ export default function OceanMap({ setActivePage }) {
           mapLib={maplibregl}
           mapStyle={MAP_STYLE}
         >
-          <NavigationControl position="top-left" />
+          <NavigationControl position="top-left" style={{ marginTop: '48px' }} />
         </Map>
       </DeckGL>
       {safePoints.length === 0 && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/10 border border-white/20 text-white/80 px-3 py-1 rounded-md text-sm">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 glass-subtle text-white/60 px-3 py-1.5 rounded-lg text-xs">
           No points available to display.
         </div>
       )}
@@ -156,15 +162,15 @@ export default function OceanMap({ setActivePage }) {
             left: Math.min(Math.max(8, hoverInfo.x + 12), window.innerWidth - 240),
             top: Math.min(Math.max(8, hoverInfo.y + 12), window.innerHeight - 120)
           }}
-          className="card p-3 text-sm"
+          className="tooltip-card"
         >
-          <div className="text-white/80 mb-1">
-            Lat {hoverInfo.coordinate[1].toFixed(3)}, Lon {hoverInfo.coordinate[0].toFixed(3)}
+          <div className="text-white/60 text-[11px] mb-1">
+            {hoverInfo.coordinate[1].toFixed(3)}°, {hoverInfo.coordinate[0].toFixed(3)}°
           </div>
           {hoverInfo.object && hoverInfo.object.depth != null ? (
-            <div className="text-white/75">Depth: <span className="text-cyan-300 font-semibold">{Number(hoverInfo.object.depth).toFixed(0)}</span> m</div>
+            <div className="text-white/80 text-xs">Depth: <span className="text-[var(--accent)] font-semibold">{Number(hoverInfo.object.depth).toFixed(0)}</span> m</div>
           ) : (
-            <div className="text-white/60">No point under cursor</div>
+            <div className="text-white/40 text-xs">No point under cursor</div>
           )}
         </div>
       )}

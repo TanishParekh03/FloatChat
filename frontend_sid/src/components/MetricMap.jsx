@@ -249,15 +249,15 @@ export default function MetricMap({ metric = 'salinity' }) {
       </DeckGL>
       {/* Color Legend */}
       <div
-        style={{ position: 'absolute', left: 12, bottom: 12, width: 260 }}
-        className="card p-3"
+        style={{ position: 'absolute', left: 12, bottom: 12, width: 240 }}
+        className="glass-subtle rounded-lg p-3"
       >
-        <div className="flex items-center justify-between text-xs text-white/70 mb-2">
-          <span>{legend.label} scale</span>
+        <div className="flex items-center justify-between text-[11px] text-white/50 mb-2 font-medium">
+          <span className="uppercase tracking-wider">{legend.label}</span>
           <span>{legend.unit}</span>
         </div>
-        <div className="h-3 w-full rounded" style={{ background: legend.gradient }} />
-        <div className="flex items-center justify-between text-xs text-white/60 mt-1">
+        <div className="h-2 w-full rounded-full overflow-hidden" style={{ background: legend.gradient }} />
+        <div className="flex items-center justify-between text-[10px] text-white/40 mt-1.5">
           <span>{legend.min}</span>
           <span>{legend.mid}</span>
           <span>{legend.max}</span>
@@ -269,33 +269,31 @@ export default function MetricMap({ metric = 'salinity' }) {
             position: 'absolute',
             left: Math.min(Math.max(8, hoverInfo.x + 12), window.innerWidth - 240),
             top: Math.min(Math.max(8, hoverInfo.y + 12), window.innerHeight - 110),
-            transition: 'transform 120ms ease, opacity 120ms ease',
-            transform: 'translateY(0)'
           }}
-          className="card p-3 text-sm"
+          className="tooltip-card"
         >
-          <div className="text-white/80 mb-1">
-            Lat {hoverInfo.coordinate[1].toFixed(3)}, Lon {hoverInfo.coordinate[0].toFixed(3)}
+          <div className="text-white/50 text-[11px] mb-1">
+            {hoverInfo.coordinate[1].toFixed(3)}°, {hoverInfo.coordinate[0].toFixed(3)}°
           </div>
           {hoverInfo.object ? (
-            <div className="text-white/75">
+            <div className="text-white/80 text-xs">
               {metric === 'temperature' && (
-                <div>Temperature: <span className="text-cyan-300 font-semibold">{(Number.isFinite(Number(hoverInfo.object.temperature)) ? Number(hoverInfo.object.temperature) : 0).toFixed(2)}</span> °C</div>
+                <div>Temperature: <span className="text-[var(--accent)] font-semibold">{(Number.isFinite(Number(hoverInfo.object.temperature)) ? Number(hoverInfo.object.temperature) : 0).toFixed(2)}</span> °C</div>
               )}
               {metric === 'salinity' && (
-                <div>Salinity: <span className="text-cyan-300 font-semibold">{(Number.isFinite(Number(hoverInfo.object.salinity)) ? Number(hoverInfo.object.salinity) : 0).toFixed(2)}</span> PSU</div>
+                <div>Salinity: <span className="text-[var(--accent)] font-semibold">{(Number.isFinite(Number(hoverInfo.object.salinity)) ? Number(hoverInfo.object.salinity) : 0).toFixed(2)}</span> PSU</div>
               )}
               {metric === 'pressure' && (
-                <div>Pressure: <span className="text-cyan-300 font-semibold">{(Number.isFinite(Number(hoverInfo.object.pressure)) ? Number(hoverInfo.object.pressure) : 0).toFixed(2)}</span> dbar</div>
+                <div>Pressure: <span className="text-[var(--accent)] font-semibold">{(Number.isFinite(Number(hoverInfo.object.pressure)) ? Number(hoverInfo.object.pressure) : 0).toFixed(2)}</span> dbar</div>
               )}
             </div>
           ) : (
-            <div className="text-white/60">No point under cursor</div>
+            <div className="text-white/40 text-xs">No point under cursor</div>
           )}
         </div>
       )}
       {error && (
-        <div style={{ position: 'absolute', bottom: 12, left: 12 }} className="card p-2">
+        <div style={{ position: 'absolute', bottom: 12, right: 12 }} className="glass-subtle rounded-lg px-3 py-2 text-red-400/80 text-xs">
           Failed to load {metric}: {error}
         </div>
       )}
