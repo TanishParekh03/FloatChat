@@ -245,7 +245,7 @@ export default function MetricMap({ metric = 'salinity' }) {
         layers={[heatmapLayer, pointsLayer, landMask].filter(Boolean)}
         onViewStateChange={({ viewState }) => setViewState(viewState)}
       >
-        <Map mapLib={maplibregl} reuseMaps mapStyle={MAP_STYLE} {...viewState} />
+        <Map mapLib={maplibregl} reuseMaps mapStyle={MAP_STYLE} attributionControl={false} {...viewState} />
       </DeckGL>
       {/* Color Legend */}
       <div

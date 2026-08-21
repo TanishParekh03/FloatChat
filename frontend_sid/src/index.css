@@ -552,3 +552,10 @@ body::before {
   background: rgba(0, 212, 255, 0.1);
   color: #fff;
 }
+
+/* ============================================
+   MAP OVERRIDES
+   ============================================ */
+.maplibregl-ctrl-logo {
+  display: none !important;
+}

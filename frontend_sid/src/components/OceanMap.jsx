@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Map, { NavigationControl } from 'react-map-gl/maplibre';
+import Map from 'react-map-gl/maplibre';
 import DeckGL from '@deck.gl/react';
 import { ScatterplotLayer } from '@deck.gl/layers';
 import { ArrowLeft, Layers } from 'lucide-react';
@@ -146,9 +146,8 @@ export default function OceanMap({ setActivePage }) {
           reuseMaps
           mapLib={maplibregl}
           mapStyle={MAP_STYLE}
-        >
-          <NavigationControl position="top-left" style={{ marginTop: '48px' }} />
-        </Map>
+          attributionControl={false}
+        />
       </DeckGL>
       {safePoints.length === 0 && (
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 glass-subtle text-white/60 px-3 py-1.5 rounded-lg text-xs">
